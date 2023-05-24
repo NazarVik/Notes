@@ -30,6 +30,8 @@ final class NoteViewController: UIViewController {
     
     //MARK: - properties
     var viewModel: NoteViewModelProtocol?
+    private let imageHeight = 200
+    private var imageName: String?
     
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -48,15 +50,15 @@ final class NoteViewController: UIViewController {
     //MARK: - Private methods
     private func configure() {
         textView.text = viewModel?.text
-//        guard let imageData = note.image,
-//              let image = UIImage(date: imageData) else { return }
-//        attachmentView.image = image
+        attachmentView.image = viewModel?.image
     }
     
     //MARK: - Private methods
     @objc
     private func saveAction() {
-        viewModel?.save(with: textView.text)
+        viewModel?.save(with: textView.text,
+                        and: attachmentView.image,
+                        imageName: imageName)
         navigationController?.popViewController(animated: true)
     }
     
@@ -64,6 +66,15 @@ final class NoteViewController: UIViewController {
     private func deleteAction() {
         viewModel?.delete()
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    private func addImage() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        
+        present(imagePicker, animated: true)
     }
     
     private func setupUI() {
@@ -74,14 +85,14 @@ final class NoteViewController: UIViewController {
         view.addGestureRecognizer(recognizer)
         textView.layer.borderWidth = textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 1 : 0
         
-        
-        setImageHeight()
         setupConstraints()
         setupBars()
     }
     
     private func setupConstraints() {
         attachmentView.snp.makeConstraints { make in
+            let height = attachmentView.image != nil ? imageHeight : 0
+            make.height.equalTo(height)
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
         }
         
@@ -92,11 +103,10 @@ final class NoteViewController: UIViewController {
         }
     }
     
-    private func setImageHeight() {
-        let height = attachmentView.image != nil ? 200 : 0
+    private func updateImageHeight() {
+        attachmentView.snp.updateConstraints { make in
+            make.height.equalTo(imageHeight)
         
-        attachmentView.snp.makeConstraints { make in
-            make.height.equalTo(height)
         }
     }
     // убираем клавиатуру по нажатию на экран
@@ -109,10 +119,32 @@ final class NoteViewController: UIViewController {
         let trashButton = UIBarButtonItem(barButtonSystemItem: .trash,
                                           target: self,
                                           action: #selector(deleteAction))
-        setToolbarItems([trashButton], animated: true)
+        
+        let photoButton = UIBarButtonItem(barButtonSystemItem: .camera,
+                                          target: self,
+                                          action: #selector(addImage))
+        
+        let space = UIBarButtonItem(systemItem: .flexibleSpace)
+        
+        setToolbarItems([trashButton, space, photoButton, space], animated: true)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                             target: self,
                                                             action: #selector(saveAction))
+    }
+}
+
+extension NoteViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[.originalImage] as? UIImage,
+              let url = info[.imageURL] as? URL  else { return }
+        imageName = url.lastPathComponent
+        attachmentView.image = selectedImage
+        updateImageHeight()
+        dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
     }
 }

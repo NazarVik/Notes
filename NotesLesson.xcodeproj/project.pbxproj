@@ -24,6 +24,7 @@
 		78AD3C1E2A1D45180038D219 /* NoteEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AD3C1C2A1D45180038D219 /* NoteEntity+CoreDataProperties.swift */; };
 		78AD3C202A1D47020038D219 /* NotePersistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AD3C1F2A1D47020038D219 /* NotePersistent.swift */; };
 		78AD3C222A1D48450038D219 /* NoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AD3C212A1D48450038D219 /* NoteViewModel.swift */; };
+		78AD3C252A1E91E00038D219 /* FileManagerPersistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AD3C242A1E91E00038D219 /* FileManagerPersistent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		78AD3C1C2A1D45180038D219 /* NoteEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		78AD3C1F2A1D47020038D219 /* NotePersistent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotePersistent.swift; sourceTree = "<group>"; };
 		78AD3C212A1D48450038D219 /* NoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewModel.swift; sourceTree = "<group>"; };
+		78AD3C242A1E91E00038D219 /* FileManagerPersistent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerPersistent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				780EA2162A1AAC3000DF2629 /* AppDelegate.swift */,
 				78AD3C0E2A1BE3BE0038D219 /* TableViewSection.swift */,
 				78AD3C1F2A1D47020038D219 /* NotePersistent.swift */,
+				78AD3C242A1E91E00038D219 /* FileManagerPersistent.swift */,
 				78AD3C152A1CF1650038D219 /* Note */,
 				78AD3C0B2A1BE1130038D219 /* NotesList */,
 				78AD3C122A1BF02A0038D219 /* Extensions */,
@@ -139,8 +142,8 @@
 		78AD3C152A1CF1650038D219 /* Note */ = {
 			isa = PBXGroup;
 			children = (
-				78AD3C232A1D484E0038D219 /* ViewModel */,
 				78AD3C162A1CF1780038D219 /* View */,
+				78AD3C232A1D484E0038D219 /* ViewModel */,
 			);
 			path = Note;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				78AD3C202A1D47020038D219 /* NotePersistent.swift in Sources */,
 				78AD3C112A1BF0050038D219 /* UIColor+Ex.swift in Sources */,
 				780EA21B2A1AAC3000DF2629 /* NotesListViewController.swift in Sources */,
+				78AD3C252A1E91E00038D219 /* FileManagerPersistent.swift in Sources */,
 				78AD3C142A1CF1350038D219 /* NoteViewController.swift in Sources */,
 				780EA2172A1AAC3000DF2629 /* AppDelegate.swift in Sources */,
 				780EA22D2A1AAE9700DF2629 /* ImageNoteTableViewCell.swift in Sources */,
