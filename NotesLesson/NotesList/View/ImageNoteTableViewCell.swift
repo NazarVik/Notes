@@ -47,10 +47,8 @@ final class ImageNoteTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - methods
-    func set(note: Note) {
+    func set(note: Note, image: UIImage) {
         titleLabel.text = note.title
-        guard let imageData = note.image ,
-              let image = UIImage(data: imageData) else { return }
         attachmentView.image = image
     }
     
