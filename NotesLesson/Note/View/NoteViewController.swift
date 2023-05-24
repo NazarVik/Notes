@@ -14,7 +14,6 @@ final class NoteViewController: UIViewController {
         let view = UIImageView()
         
         view.layer.cornerRadius = 10
-        view.image = UIImage(named: "mockImage")
         view.layer.masksToBounds = true
         view.contentMode = .scaleAspectFill
         
@@ -35,6 +34,8 @@ final class NoteViewController: UIViewController {
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configure()
         setupUI()
     }
     
@@ -48,19 +49,21 @@ final class NoteViewController: UIViewController {
     private func configure() {
         textView.text = viewModel?.text
 //        guard let imageData = note.image,
-//              let image = UIImage(data: imageData) else { return }
+//              let image = UIImage(date: imageData) else { return }
 //        attachmentView.image = image
     }
     
     //MARK: - Private methods
     @objc
     private func saveAction() {
-        
+        viewModel?.save(with: textView.text)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
     private func deleteAction() {
-        
+        viewModel?.delete()
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupUI() {

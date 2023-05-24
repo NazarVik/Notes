@@ -17,7 +17,7 @@ protocol NoteViewModelProtocol {
 final class NoteViewModel: NoteViewModelProtocol {
     let note: Note?
     var text: String {
-        let text = (note?.title ?? "") + "\n\n" + (note?.description ?? "")
+        let text = (note?.title ?? "") + "\n\n" + (note?.description?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "")
         return text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     init(note: Note?) {
@@ -26,12 +26,12 @@ final class NoteViewModel: NoteViewModelProtocol {
     
     // MARK: - methods
     func save(with text: String) {
-        let date = note?.data ?? Date()
+        let date = note?.date ?? Date()
         let (title, description) = createTitleAndDescription(from: text)
         
         let note = Note(title: title,
                         description: description,
-                        data: date,
+                        date: date,
                         imageURL: nil )
         NotePersistent.save(note)
     }
